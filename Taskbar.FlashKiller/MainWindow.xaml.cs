@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -8,15 +7,9 @@ using Taskbar.FlashMethods;
 
 namespace Taskbar.FlashKiller
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    partial class MainWindow
     {
-        public MainWindow()
-        {
-            this.InitializeComponent();
-        }
+        public MainWindow() => this.InitializeComponent();
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -37,7 +30,7 @@ namespace Taskbar.FlashKiller
             {
                 NativeMethods.AttachThreadInput(launcherThreadId, currentThreadId, true);
             }
-            source.AddHook(MainWindow.HwndHook);            
+            source.AddHook(MainWindow.HwndHook);
         }
 
         protected override void OnClosing(CancelEventArgs e)
