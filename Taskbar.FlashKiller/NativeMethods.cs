@@ -5,14 +5,6 @@ namespace Taskbar.FlashKiller
 {
     internal static class NativeMethods
     {
-        public delegate int WindowsHook(int nCode, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool UnhookWindowsHookEx(IntPtr idHook);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr SetWindowsHookEx(int idHook, WindowsHook lpfn, IntPtr hMod, uint dwThreadId);
-
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern uint GetCurrentThreadId();
 
@@ -23,9 +15,6 @@ namespace Taskbar.FlashKiller
         public static extern IntPtr GetDesktopWindow();
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll", SetLastError = true)]
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr lpdwProcessId);
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -33,12 +22,6 @@ namespace Taskbar.FlashKiller
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int SetWindowLongPtr(IntPtr hWnd, int nIndex, int dwNewLong);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr GetModuleHandle(string lpModuleName);
-
-        [DllImport("user32.dll", EntryPoint = "RegisterWindowMessageA", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-        public static extern int RegisterWindowMessage(string lpString);
 
         [DllImport("user32.dll", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
         public static extern int RegisterShellHookWindow(IntPtr hWnd);
