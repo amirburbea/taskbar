@@ -58,7 +58,7 @@ namespace Taskbar.FlashKiller
             uint currentThreadId = NativeMethods.GetCurrentThreadId();
             if (currentThreadId != launcherThreadId)
             {
-                NativeMethods.AttachThreadInput(launcherThreadId, currentThreadId, true);
+                NativeMethods.AttachThreadInput(launcherThreadId, currentThreadId, false);
             }
             base.OnClosing(e);
         }
