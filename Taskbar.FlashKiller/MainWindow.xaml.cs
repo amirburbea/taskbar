@@ -37,23 +37,13 @@ namespace Taskbar.FlashKiller
             {
                 NativeMethods.AttachThreadInput(launcherThreadId, currentThreadId, true);
             }
-            source.AddHook(this.HwndHook);            
-        }
-
-        private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (wParam == Constants.HSHELL_FLASH)
-            {
-                TaskbarFlash.Stop(lParam);
-                handled = true;
-            }
-            return IntPtr.Zero;
+            source.AddHook(MainWindow.HwndHook);            
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             HwndSource source = (HwndSource)PresentationSource.FromVisual(this);
-            source.RemoveHook(this.HwndHook);
+            source.RemoveHook(MainWindow.HwndHook);
             uint launcherThreadId = NativeMethods.GetWindowThreadProcessId(NativeMethods.GetDesktopWindow(), default);
             uint currentThreadId = NativeMethods.GetCurrentThreadId();
             if (currentThreadId != launcherThreadId)
@@ -61,6 +51,16 @@ namespace Taskbar.FlashKiller
                 NativeMethods.AttachThreadInput(launcherThreadId, currentThreadId, false);
             }
             base.OnClosing(e);
+        }
+
+        private static IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (wParam == Constants.HSHELL_FLASH)
+            {
+                TaskbarFlash.Stop(lParam);
+                handled = true;
+            }
+            return IntPtr.Zero;
         }
     }
 }
